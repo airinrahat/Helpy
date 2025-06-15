@@ -1,9 +1,12 @@
 "use client";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -11,13 +14,44 @@ export default function LoginForm() {
 
     const email = form.email.value;
     const password = form.password.value;
+    toast("submitting ....");
     try {
-      await signIn("credentials", { email, password, callbackUrl: "/" });
-      // router.push("/");
+      const response = await signIn("credentials", {
+        email,
+        password,
+        // callbackUrl: "/",
+        redirect: false,
+      });
+      if (response?.ok) {
+        toast.success("Logged In Success");
+        router.push("/");
+        form.reset();
+      } else {
+        toast.error("Failed to login in");
+      }
+
+      //   console.log({ email, password });
     } catch (error) {
       console.log(error);
-      alert("authentication failed");
+      toast.error("Failed to login in");
     }
+    // try {
+    //   const response = await signIn("credentials", {
+    //     email,
+    //     password,
+    //     redirect: false,
+    //   });
+
+    //   if (response?.ok && !response.error) {
+    //     form.reset();
+    //     router.push("/"); // ✅ redirect manually
+    //   } else {
+    //     alert("Invalid email or password.");
+    //   }
+    // } catch (error) {
+    //   console.log("Login error:", error);
+    //   alert("Authentication failed. Please try again.");
+    // }
   };
 
   return (
