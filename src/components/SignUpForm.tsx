@@ -1,4 +1,5 @@
 "use client";
+import { registerUser } from "@/app/actions/auth/registerUser";
 import React, { useState } from "react";
 
 const SignUpForm = () => {
@@ -11,7 +12,7 @@ const SignUpForm = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    console.log({ name, email, password });
+    await registerUser({ name, email, password });
   };
 
   return (

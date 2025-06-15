@@ -8,7 +8,7 @@ const SignUp = () => {
     <div className="bg-[#010313] w-full hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row">
         <div className="flex justify-center items-center">
-          <Image src={signUpImg} className="w-full " alt="signUp"></Image>
+          <Image src={signUpImg} className="w-full " alt="signUp" />
         </div>
 
         <div className="card flex-shrink-0 w-96 min-w-72 shadow-2xl bg-[#0e0d21] ">

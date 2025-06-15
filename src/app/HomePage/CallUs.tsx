@@ -14,7 +14,7 @@ const ContactInfoSection = ({ icon, title, details }) => {
       <div className="relative">
         <Image
           src={icon}
-          alt={`${title} icon`}
+          alt="title"
           width={50}
           height={50}
           className="mb-3"
