@@ -64,12 +64,14 @@ const Causes: React.FC = async () => {
                         </div>
                       </div>
 
-                      <div className="text-xl font-bold pt-[140px] absolute w-full text-center">
-                        <h3 className="text-[#1C3A5F]">{service.name}</h3>
-                        <Link href={`/services/${service._id}`}>
-                          <button className="text-sm px-4 py-2 mb-4 font-bold text-white bg-[#274A66] rounded-full shadow-lg hover:bg-[#1F345D] transition-all duration-300 mt-2">
-                            Learn More
-                          </button>
+                      <div className="text-xl font-bold pt-[100px] absolute w-full text-center">
+                        <h3 className="text-[#1C3A5F] mb-3">{service.name}</h3>
+
+                        <Link
+                          href={`/services/${service._id}`}
+                          className="text-sm px-4 py-2 mb-2  font-bold text-white bg-[#274A66] rounded-full shadow-lg hover:bg-[#1F345D] transition-all duration-300 "
+                        >
+                          Learn More
                         </Link>
                       </div>
                     </div>

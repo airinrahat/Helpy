@@ -25,7 +25,7 @@ const Navbar = () => {
   );
 
   return (
-    <div>
+    <div className="">
       <div className="navbar bg-[#E7E6EA] shadow-sm">
         <div className="navbar-start">
           <div className="dropdown">
@@ -61,7 +61,9 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{NavMenu()}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn bg-[#01715D]">Login</a>
+          <Link href="/login" className="btn bg-[#01715D]">
+            Login
+          </Link>
         </div>
       </div>
     </div>
