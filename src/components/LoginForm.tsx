@@ -35,23 +35,6 @@ export default function LoginForm() {
       console.log(error);
       toast.error("Failed to login in");
     }
-    // try {
-    //   const response = await signIn("credentials", {
-    //     email,
-    //     password,
-    //     redirect: false,
-    //   });
-
-    //   if (response?.ok && !response.error) {
-    //     form.reset();
-    //     router.push("/"); // ✅ redirect manually
-    //   } else {
-    //     alert("Invalid email or password.");
-    //   }
-    // } catch (error) {
-    //   console.log("Login error:", error);
-    //   alert("Authentication failed. Please try again.");
-    // }
   };
 
   return (

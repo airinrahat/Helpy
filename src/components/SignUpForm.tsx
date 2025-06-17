@@ -1,9 +1,13 @@
 "use client";
 import { registerUser } from "@/app/actions/auth/registerUser";
 import React, { useState } from "react";
+import SocialLogin from "./SocialLogin";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -11,6 +15,9 @@ const SignUpForm = () => {
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
+    toast.success("sign up Success");
+    router.push("/login");
+    form.reset();
 
     await registerUser({ name, email, password });
   };
@@ -108,6 +115,9 @@ const SignUpForm = () => {
           >
             Sign Up
           </button>
+        </div>
+        <div className="w-full">
+          <SocialLogin />
         </div>
       </form>
     </div>

@@ -3,10 +3,11 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { FaUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
-  console.log(session);
+
   const NavMenu = () => (
     <>
       <li>
@@ -66,7 +67,18 @@ const Navbar = () => {
         <div className="navbar-end gap-5"></div>
         {status == "authenticated" ? (
           <>
-            {" "}
+            {session?.user?.image ? (
+              <Image
+                src={session.user.image}
+                alt="User Image"
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
+            ) : (
+              <FaUserCircle className="text-5xl  text-gray-600" />
+            )}
+
             <li onClick={() => signOut()} className="btn bg-[#01715D]">
               Logout
             </li>

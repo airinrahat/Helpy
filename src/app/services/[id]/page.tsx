@@ -1,18 +1,16 @@
 import Banner from "@/app/HomePage/Banner";
-import dbConnect, { collectionNamesObj } from "@/lib/dbConnect";
-import { ObjectId } from "mongodb";
+
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
 
 export default async function ServiceDetailsPage({ params }) {
   const p = await params;
-  const serviceCollection = dbConnect(collectionNamesObj.serviceCollection);
-  const data = await serviceCollection.findOne({ _id: new ObjectId(p.id) });
+  const res = await fetch(`http://localhost:3000/api/services/${p.id}`);
+  const data = await res.json();
   return (
     <div>
       <Banner />
-      {/* <p>{p.id}</p>
-      <p>{JSON.stringify(data)}</p> */}
+
       <main className="max-w-6xl mx-auto p-6">
         <section className="bg-white rounded-2xl shadow-lg p-6 md:p-10 space-y-8">
           {/* Header Section */}
@@ -33,12 +31,7 @@ export default async function ServiceDetailsPage({ params }) {
                 Dedicated Support Server
               </h1>
               <p className="text-gray-600 leading-relaxed">
-                This server provides 24/7 customer support with automated
-                ticketing, multilingual agents, and live chat. Perfect for small
-                to mid-sized businesses looking to deliver efficient service.
-                This server provides 24/7 customer support with automated
-                ticketing, multilingual agents, and live chat. Perfect for small
-                to mid-sized businesses looking to deliver efficient service.
+                {data?.description}
                 This server provides 24/7 customer support with automated
                 ticketing, multilingual agents, and live chat. Perfect for small
                 to mid-sized businesses looking to deliver efficient service.
@@ -47,9 +40,15 @@ export default async function ServiceDetailsPage({ params }) {
                 <span className="font-medium">Status:</span>{" "}
                 <span className="text-green-600 font-semibold">Active</span>
               </div>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-lg shadow-md transition duration-200">
-                Request Support
-              </button>
+
+              <div className="flex gap-4">
+                <Link href={`/checkOut/${data._id}`}>
+                  {" "}
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-lg shadow-md transition duration-200">
+                    Checkout
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -58,12 +57,11 @@ export default async function ServiceDetailsPage({ params }) {
             <h2 className="text-xl font-semibold text-gray-800 mb-3">
               Key Features
             </h2>
-            <ul className="list-disc list-inside space-y-2 text-gray-700">
-              <li>Automated ticket management system</li>
-              <li>Multilingual support agents</li>
-              <li>Real-time live chat response</li>
-              <li>99.9% Uptime guaranteed</li>
-              <li>Scalable infrastructure for growth</li>
+
+            <ul className="list-disc pl-4">
+              {data?.key_features?.map((feature, index) => (
+                <li key={index}>{feature}</li>
+              ))}
             </ul>
           </div>
 
@@ -73,6 +71,7 @@ export default async function ServiceDetailsPage({ params }) {
               Important Notice
             </h3>
             <p className="text-gray-600">
+              {data?.important_notice}
               Please make sure your business is registered before requesting
               support services. Our support team is available 24/7, but response
               time may vary depending on peak hours and ticket volume.
@@ -80,8 +79,7 @@ export default async function ServiceDetailsPage({ params }) {
           </div>
         </section>
 
-        {/* Features Section */}
-        <section className="mt-8 bg-white p-6 rounded-2xl shadow-md">
+        {/* <section className="mt-8 bg-white p-6 rounded-2xl shadow-md">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">
             Key Features
           </h2>
@@ -93,7 +91,7 @@ export default async function ServiceDetailsPage({ params }) {
           </ul>
         </section>
 
-        {/* Contact Section */}
+     
         <section className="mt-8 p-6 bg-blue-50 rounded-2xl text-center">
           <h3 className="text-lg font-semibold mb-2">Need Customization?</h3>
           <p className="text-sm text-gray-600 mb-4">
@@ -103,7 +101,7 @@ export default async function ServiceDetailsPage({ params }) {
           <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg">
             Contact Us
           </button>
-        </section>
+        </section> */}
       </main>
     </div>
   );
